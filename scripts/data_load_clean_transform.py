@@ -315,20 +315,27 @@ class DataCleaner:
                 plt.ylim(0, y_max * 1.1)  # Add 10% padding to the y-axis
 
             plt.show()
-
-    def distribution_categorical_features(self):
+            
+    def visualize_categorical_distributions(self, columns):
         """
-        Visualize the distribution of categorical features with adaptive y-axis.
+        Visualize the distributions of given categorical columns in the DataFrame.
+        
+        Parameters:
+        - columns: list of str, the names of the categorical columns to visualize.
         """
-        logger.info("Visualizing distribution of categorical features.")
-        categorical_cols = self.df.select_dtypes(include=['object', 'category']).columns
-        for col in categorical_cols:
+        for column_name in columns:
+            if column_name not in self.df.columns:
+                raise ValueError(f"Column '{column_name}' is not in the DataFrame.")
+            
+            if self.df[column_name].dtype not in ['object', 'category']:
+                raise ValueError(f"Column '{column_name}' is not categorical.")
+            
             plt.figure(figsize=(8, 4))
             
             # Plot the distribution using countplot
-            plot = sns.countplot(data=self.df, x=col)
-            plt.title(f'Distribution of {col}')
-            plt.xlabel(col)
+            plot = sns.countplot(data=self.df, x=column_name)
+            plt.title(f'Distribution of {column_name}')
+            plt.xlabel(column_name)
             plt.ylabel('Count')
             plt.xticks(rotation=45)
             
@@ -337,10 +344,10 @@ class DataCleaner:
             if y_max > 0:
                 plt.ylim(0, y_max * 1.1)  # Add 10% padding to the maximum height
             else:
-                logger.warning(f"Column {col} has no data to plot.")
-                plt.text(0.5, 0.5, f"No data in {col}", horizontalalignment='center', verticalalignment='center', fontsize=12)
+                plt.text(0.5, 0.5, f"No data in {column_name}", 
+                         horizontalalignment='center', verticalalignment='center', fontsize=12)
                 plt.axis('off')
-
+            
             plt.show()
 
     def correlation_analysis(self):
