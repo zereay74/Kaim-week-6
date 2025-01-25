@@ -1,9 +1,7 @@
 logging
 matplotlib
 numpy
-os
 pandas
-re
+scikit-learn
 scipy
 seaborn
-sklearn
