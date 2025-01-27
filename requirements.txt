@@ -1,3 +1,4 @@
+fastapi
 joblib
 logging
 matplotlib
@@ -6,3 +7,4 @@ pandas
 scikit-learn
 scipy
 seaborn
+uvicorn
