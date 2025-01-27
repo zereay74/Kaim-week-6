@@ -16,5 +16,9 @@ EXPOSE 8000
 # Command to run the application
 CMD ["uvicorn", "model_serving_api:app", "--host", "0.0.0.0", "--port", "8000"] 
 
-# run --> docker build -t fastapi-ml-predictor .   # bulid docker image 
-#     --> docker run -d -p 8000:8000 fastapi-ml-predictor  # run docker container
+# run               --> docker build -t fastapi-ml-predictor .   # bulid docker image 
+#                   --> docker run -d -p 8000:8000 fastapi-ml-predictor  # run docker container
+#                   --> docker login
+# tag  to docker hub --> docker tag fastapi-ml-predictor:latest zereay/fastapi-ml-predictor:latest 
+# push               --> docker push zereay/fastapi-ml-predictor:latest 
+# connect RENDER or AWS to Docker hub for deployment.
